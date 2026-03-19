@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tình yêu của tôi💖</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  overflow: hidden;
+  background: linear-gradient(270deg, #ffd6e0, #ffe9c9, #ffc2d1);
+  background-size: 600% 600%;
+  animation: bg 10s infinite;
+}
+
+@keyframes bg {
+  0% {background-position:0%}
+  50% {background-position:100%}
+  100% {background-position:0%}
+}
+
+.container {
+  text-align: center;
+  background: white;
+  padding: 40px;
+  border-radius: 25px;
+  width: 90%;
+  max-width: 500px;
+  margin: auto;
+  margin-top: 10vh;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+h2 {
+  color: #ff4d6d;
+}
+
+img {
+  width: 220px;
+  border-radius: 20px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% {transform: translateY(0);}
+  50% {transform: translateY(-10px);}
+}
+
+/* buttons */
+.buttons {
+  height: 150px;
+  position: relative;
+}
+
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  position: absolute;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.yes {
+  background: #4CAF50;
+  left: 20%;
+}
+
+.yes:hover {
+  transform: scale(1.2);
+}
+
+.no {
+  background: #ff4d4d;
+  left: 60%;
+}
+
+/* overlay */
+#loveScreen {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  display:none;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+  background: radial-gradient(circle, #ff9a9e, #fecfef);
+  z-index:999;
+}
+
+/* heart */
+.bigHeart {
+  font-size: 180px;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  50% {transform: scale(1.3);}
+}
+
+/* typing text */
+.loveText {
+  font-size: 35px;
+  color: #ff1a4d;
+  margin-top: 20px;
+  border-right: 3px solid;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 3s steps(20) forwards;
+}
+
+@keyframes typing {
+  to { width: 220px; }
+}
+
+/* hearts */
+.heart, .sparkle, .confetti {
+  position: absolute;
+  font-size: 20px;
+  animation: fly 3s linear forwards;
+}
+
+@keyframes fly {
+  to {
+    transform: translateY(-400px);
+    opacity: 0;
+  }
+}
+
+/* share button */
+.share {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #ff4d6d;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>em có yêu anh không 💖</h2>
+  <img src="./img/11.jpg">
+
+  <div class="buttons" id="area">
+    <button class="yes" onclick="sayYes()">Yes</button>
+    <button class="no" id="noBtn">No</button>
+  </div>
+</div>
+
+<div id="loveScreen">
+  <div class="bigHeart">💖</div>
+  <div class="loveText">anh cũng yêu em</div>
+  <div class="share" onclick="copyLink()">💌 gửi trái tim em cho anh đi</div>
+</div>
+
+<div id="loveScreen">
+  <div class="bigHeart">💖</div>
+  <div class="loveText">anh cũng yêu em</div>
+</div>
+
+<audio id="music" src="https://www.fesliyanstudios.com/play-mp3/387"></audio>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const area = document.getElementById("area");
+
+/* 😈 né chuột thông minh */
+document.addEventListener("mousemove", (e) => {
+  const rect = noBtn.getBoundingClientRect();
+  const dx = e.clientX - (rect.left + rect.width/2);
+  const dy = e.clientY - (rect.top + rect.height/2);
+  const dist = Math.sqrt(dx*dx + dy*dy);
+
+  if (dist < 120) move();
+});
+
+function move(){
+  const x = Math.random()*(area.clientWidth - noBtn.offsetWidth);
+  const y = Math.random()*(area.clientHeight - noBtn.offsetHeight);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+
+/* 💖 YES */
+function sayYes(){
+  document.getElementById("loveScreen").style.display = "flex";
+  document.getElementById("music").play();
+
+  setInterval(()=>{
+    createEffect("💖");
+    createEffect("✨");
+    createEffect("🎉");
+  },200);
+}
+
+function createEffect(icon){
+  const el = document.createElement("div");
+  el.className = "heart";
+  el.innerHTML = icon;
+  el.style.left = Math.random()*window.innerWidth+"px";
+  el.style.bottom = "0px";
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),3000);
+}
+
+/* copy link */
+function copyLink(){
+  navigator.clipboard.writeText(window.location.href);
+  alert("Đã copy link gửi cho tình yêu ,a biết em yêu anh mà 😏");
+}
+</script>
+
+</body>
+</html>
